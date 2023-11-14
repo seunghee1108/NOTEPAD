@@ -23,19 +23,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //
     createMemo(title, content);
-    ssaveMemoToLocalStorage();
+    saveMemoToLocalStorage();
   });
   function createMemo(title, content) {
     const memo = document.createElement('div');
     memo.classList.add('memo-item');
-    momo.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
+    memo.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
     selectors.memoList.appendChild(memo);
   }
 
   function saveMemoToLocalStorage() {
-    const momoes = JSON.parse(localStorage.getItem('memos')) || [];
+    const memos = JSON.parse(localStorage.getItem('memos')) || [];
     
-  momos.push({title, content});
+  memos.push({title, content});
   localStorage.setItem('momos', JSON.stringify(memos));
 
   selectors.title.value = ''; // 수정: title을 초기화
@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
   
   function loadMemosFromLocalStorage() {
     const memos = JSON.parse(localStorage.getItem('memos')) || [];
+
+  selectors.memoList.innerHTML = '';
+
 
      memos.forEach((memo) => createMemo(memo.title, memo.content));
   }
