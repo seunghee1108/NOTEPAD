@@ -21,13 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // 시간 추가
+    const timestamp = new Date().toLocaleString();
+
     // creaetMemo : 새로운 메모 생성하고 화면에 표시
-    createMemo(title, content);
+    createMemo(title, content, timestamp);
     // 로컬 스토리지에 저장
-    saveMemoToLocalStorage();
+    saveMemoToLocalStorage(title, content, timestamp);
   });
   // 메모 작성하면 저장되는 memo-item div 생성
-  function createMemo(title, content) {
+  function createMemo(title, content, timestamp) {
     const memo = document.createElement('div');
     memo.classList.add('memo-item');
     // 동적으로 생성
@@ -42,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
      
   // push() : 새로운 메모를 memos에 추가 
   // 배열을 JSON 문자열로 변환하여 로컬 스토리지에 저장
-  memos.push({ title: selectors.title.value, content: selectors.content.value });
+  memos.push({ title: selectors.title.value, content: selectors.content, timestamp});
   localStorage.setItem('memos', JSON.stringify(memos));
 
   selectors.title.value = ''; // title 초기화
@@ -57,7 +60,7 @@ function loadMemosFromLocalStorage() {
   selectors.memoList.innerHTML = '';
 
   // 배열 순회하면서 memo에 대해 createMemo 함수를 호출 
-  memos.forEach((memo) => createMemo(memo.title, memo.content));
+  memos.forEach((memo) => createMemo(memo.title, memo.content, memo.timestamp));
 }
 
 // 새로운 메모를 저장하기 전에 이전 메모를 초기화
