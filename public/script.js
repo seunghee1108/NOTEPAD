@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   selectors.saveBtn.addEventListener('click', function(event) {
-    // preventDefault() : 
+    // event.preventDefault() : form에서 button 눌렀을때 동작을 중단시킴
     event.preventDefault();
     
     const title = selectors.title.value;
@@ -21,13 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    //
+    // creatMemo
     createMemo(title, content);
+    // 
     saveMemoToLocalStorage();
   });
   function createMemo(title, content) {
     const memo = document.createElement('div');
     memo.classList.add('memo-item');
+    // 동적으로 생성
     memo.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
     selectors.memoList.appendChild(memo);
   }
@@ -38,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
   memos.push({title, content});
   localStorage.setItem('momos', JSON.stringify(memos));
 
-  selectors.title.value = ''; // 수정: title을 초기화
-  selectors.content.value = ''
+  selectors.title.value = ''; // title 초기화
+  selectors.content.value = ''; // content 초기화
 
   createMemo(title, content);
   loadMemosFromLocalStorage();
@@ -49,8 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   selectors.memoList.innerHTML = '';
 
-
-     memos.forEach((memo) => createMemo(memo.title, memo.content));
-  }
+    memos.forEach((memo) => createMemo(memo.title, memo.content));
+    
+    localStorage.removeItem('memos');
+   }
   }
 });
