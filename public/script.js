@@ -65,7 +65,7 @@ function loadMemosFromLocalStorage() {
 }
 
 // 새로운 메모를 저장하기 전에 이전 메모를 초기화
-localStorage.removeItem('memos');
+// localStorage.removeItem('memos');
 loadMemosFromLocalStorage();
 });
 
