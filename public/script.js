@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // creatMemo
+    // creaetMemo
     createMemo(title, content);
     // 
     saveMemoToLocalStorage();
@@ -36,11 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveMemoToLocalStorage() {
-    console.log("Saving memo:", title, content);
     const memos = JSON.parse(localStorage.getItem('memos')) || [];
     
   memos.push({ title: selectors.title.value, content: selectors.content.value });
-  localStorage.setItem('momos', JSON.stringify(memos));
+  localStorage.setItem('memos', JSON.stringify(memos));
 
   selectors.title.value = ''; // title 초기화
   selectors.content.value = ''; // content 초기화
