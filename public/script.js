@@ -15,18 +15,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = selectors.content.value;
 
     if(!title) {
-      alert('제목을 입력하세요.')
+      alert('제목을 입력하세요.');
     } else if(!content) {
-      alert('내용을 입력하세요.')
+      alert('내용을 입력하세요.');
       return;
     }
 
-    // creaetMemo
+    // creaetMemo : 새로운 메모 생성하고 화면에 표시
     createMemo(title, content);
-    // 
+    // 로컬 스토리지에 저장
     saveMemoToLocalStorage();
   });
-  // div 생성
+  // 메모 작성하면 저장되는 memo-item div 생성
   function createMemo(title, content) {
     const memo = document.createElement('div');
     memo.classList.add('memo-item');
@@ -35,9 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
     selectors.memoList.appendChild(memo);
   }
 
+  // 로컬 스토리지에서 이전에 저장된 메모 목록을 불러오고, 
+  // 이전에 저장된 메모가 없는 경우 빈 배열을 사용
   function saveMemoToLocalStorage() {
     const memos = JSON.parse(localStorage.getItem('memos')) || [];
-    
+     
+  // push() : 새로운 메모를 memos에 추가 
+  // 배열을 JSON 문자열로 변환하여 로컬 스토리지에 저장
   memos.push({ title: selectors.title.value, content: selectors.content.value });
   localStorage.setItem('memos', JSON.stringify(memos));
 
@@ -52,6 +56,7 @@ function loadMemosFromLocalStorage() {
 
   selectors.memoList.innerHTML = '';
 
+  // 배열 순회하면서 memo에 대해 createMemo 함수를 호출 
   memos.forEach((memo) => createMemo(memo.title, memo.content));
 }
 
