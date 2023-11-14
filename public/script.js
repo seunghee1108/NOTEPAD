@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 
     saveMemoToLocalStorage();
   });
+  // div 생성
   function createMemo(title, content) {
     const memo = document.createElement('div');
     memo.classList.add('memo-item');
@@ -35,25 +36,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function saveMemoToLocalStorage() {
+    console.log("Saving memo:", title, content);
     const memos = JSON.parse(localStorage.getItem('memos')) || [];
     
-  memos.push({title, content});
+  memos.push({ title: selectors.title.value, content: selectors.content.value });
   localStorage.setItem('momos', JSON.stringify(memos));
 
   selectors.title.value = ''; // title 초기화
   selectors.content.value = ''; // content 초기화
 
-  createMemo(title, content);
   loadMemosFromLocalStorage();
-  
-  function loadMemosFromLocalStorage() {
-    const memos = JSON.parse(localStorage.getItem('memos')) || [];
+}
+
+function loadMemosFromLocalStorage() {
+  const memos = JSON.parse(localStorage.getItem('memos')) || [];
 
   selectors.memoList.innerHTML = '';
 
-    memos.forEach((memo) => createMemo(memo.title, memo.content));
-    
-    localStorage.removeItem('memos');
-   }
-  }
+  memos.forEach((memo) => createMemo(memo.title, memo.content));
+}
+
+// 새로운 메모를 저장하기 전에 이전 메모를 초기화
+localStorage.removeItem('memos');
+loadMemosFromLocalStorage();
 });
+
