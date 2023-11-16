@@ -1,22 +1,35 @@
 const express = require('express');
-const app = express();
+const bodyParser = require('body-parser');
+const fs = require('fs');
 const path = require('path');
 
+const app = express();
 const port = 3000;
 
-const jsonFilePath = path.join(__dirname, "data.json");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-const memoRouter = require('./routes/routes');
-app.use('/api', memoRouter);
+app.use(express.static('public'));
 
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.post('/api/memos', (req, res) => {
+  try {
+    const dataPath = path.join(__dirname, 'data', 'data.json');
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+   
+    const memos = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+
+    const newMemo = req.body;
+    memos.push(newMemo);
+
+    
+    fs.writeFileSync(dataPath, JSON.stringify(memos, null, 2), 'utf-8');
+
+    res.status(201).json(newMemo); 
+  } catch (error) {
+    console.error('Error adding memo:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.listen(port, () => {
