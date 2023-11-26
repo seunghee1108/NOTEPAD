@@ -75,7 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 로컬 스토리지에서 이전에 저장된 메모 목록을 불러옴
   function saveMemoToLocalStorage(title, content, timestamp) {
-    const memos = JSON.parse(localStorage.getItem('memos')) 
+    // 이전에 저장된 메모가 없는 경우 빈 배열을 사용
+    const memos = JSON.parse(localStorage.getItem('memos')) || [];
 
     // push() : 새로운 메모를 memos에 추가 
     // 배열을 JSON 문자열로 변환하여 로컬 스토리지에 저장
@@ -95,7 +96,5 @@ document.addEventListener("DOMContentLoaded", () => {
     memos.forEach((memo) => createMemo(memo.title, memo.content, memo.timestamp));
   }
 
-  // 새로운 메모를 저장하기 전에 이전 메모를 초기화
-  localStorage.removeItem('memos');
   loadMemosFromLocalStorage();
 });
