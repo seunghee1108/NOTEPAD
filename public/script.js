@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 시간 추가
     const timestamp = new Date().toLocaleString();
 
+    // 새로운 메모 객체 생성
     const newMemo = {
       title: title,
       content: content,
@@ -44,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error('네트워트 응답이 정상이 아닙니다.');
       }
 
+      //  fetch로 받은 HTTP 응답의 본문을 JSON 형태로 해석
       const result = await response.json();
       console.log('Memo added:', result);
 
@@ -71,10 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
     selectors.memoList.appendChild(memo);
   }
 
-  // 로컬 스토리지에서 이전에 저장된 메모 목록을 불러오고, 
-  // 이전에 저장된 메모가 없는 경우 빈 배열을 사용
+  // 로컬 스토리지에서 이전에 저장된 메모 목록을 불러옴
   function saveMemoToLocalStorage(title, content, timestamp) {
-    const memos = JSON.parse(localStorage.getItem('memos')) || [];
+    const memos = JSON.parse(localStorage.getItem('memos')) 
 
     // push() : 새로운 메모를 memos에 추가 
     // 배열을 JSON 문자열로 변환하여 로컬 스토리지에 저장
@@ -84,8 +85,11 @@ document.addEventListener("DOMContentLoaded", () => {
     loadMemosFromLocalStorage();
   }
 
+  // 로컬 스토리지에서 메모를 불러와 화면에 표시하는 함수
   function loadMemosFromLocalStorage() {
+    // 이전에 저장된 메모 목록을 불러오고, 없으면 빈 배열 생성
     const memos = JSON.parse(localStorage.getItem('memos')) || [];
+     // 메모 목록을 초기화
     selectors.memoList.innerHTML = '';
     // 배열 순회하면서 memo에 대해 createMemo 함수를 호출 
     memos.forEach((memo) => createMemo(memo.title, memo.content, memo.timestamp));
