@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOTEPAD</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id="root">
+    <div>NOTEPAD</div>
+        <section class="container">
+        <form id="memo-Form" method="POST">
+        <input type="text" id="title" placeholder="제목">
+        <textarea id="content" cols="30" rows="15" placeholder="내용"></textarea>
+        <button id="saveBtn">저장</button>
+      </form>
+    </section>
+  </div>
+    <section class="memo-list"></section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
