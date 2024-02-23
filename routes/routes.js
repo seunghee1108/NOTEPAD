@@ -8,11 +8,15 @@ router.post('/memos', (req, res) => {
   try {
     const dataPath = path.join(__dirname, '..', 'data', 'data.json');
 
-    // 기존 메모 읽어오기
-    const memos = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
-
-    // 새로운 메모 추가
+    // 요청으로부터 새로운 메모 데이터 가져오기
     const newMemo = req.body;
+
+    // 기존 메모 읽어오기
+    const rawData = fs.readFileSync(dataPath, 'utf-8');
+    const memos = JSON.parse(rawData);
+
+    
+    // 새로운 메모 추가
     memos.push(newMemo);
 
     // 업데이트된 메모를 파일에 저장
